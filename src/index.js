@@ -21,16 +21,12 @@ class Sorter {
 
   sort(indices) {
     // сортируем входящий массив
-    for (var i = indices.length; i >= 0; i--) {
-        for (var j = 0; j < indices.length; j++) {
-            if ( indices[j] > indices[j+1] ) {
-                var x = indices[j+1];
-                indices[j+1] = indices[j];
-                indices[j] = x;
-            } 
-        }
+    if (this.comparator == undefined) {
+        indices.sort( function compareNumbers(a, b) {return a - b;})
+    } else {
+        indices.sort(this.comparator);
     }
-
+    
     for (var i = 0; i < indices.length; i++) {
         for (var j = 0; j < indices.length; j++) {
             if ( this.array[indices[j]] > this.array[indices[j+1]] ) {
@@ -43,8 +39,8 @@ class Sorter {
   }
 
   setComparator(compareFunction) {
-    // your implementation
-  }
+    this.comparator = compareFunction;
+    }
 }
 
 module.exports = Sorter;
